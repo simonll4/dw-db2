@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import random
 
 # Create a SQLAlchemy engine
-engine = create_engine('sqlite:////home/simonll4/Desktop/db/OLTP-sqlite/database.sqlite')
+engine = create_engine('sqlite:////home/simonll4/Desktop/db/OLTP/oltp.sqlite')
 subtypes = ['header', 'shot', 'distance', 'volley', 'freekick', 'penalty', 'penalty', 'penalty', 'cross', 'clearance', 'lob', 'backheel', 'direct_freekick']
 
 def assign_subtype(subtype):
@@ -36,4 +36,4 @@ with open('goal.txt', 'w') as f:
     f.write(df_goals.to_string())
 
 # Write the new DataFrame to a new SQL table
-df_goals.to_sql('goalTable', engine, if_exists='replace')
+#df_goals.to_sql('goalTable', engine, if_exists='replace')

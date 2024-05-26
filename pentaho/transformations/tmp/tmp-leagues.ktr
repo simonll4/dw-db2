@@ -436,11 +436,11 @@
   <notepads>
   </notepads>
   <connection>
-    <name>fifa_dw</name>
+    <name>dw-db2</name>
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>dw-db2</database>
+    <database>dwdb2</database>
     <port>5432</port>
     <username>user</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce10bec3fd89</password>
@@ -505,7 +505,7 @@
       </attribute>
       <attribute>
         <code>CUSTOM_URL</code>
-        <attribute>jdbc:sqlite:/home/gabriel/Descargas/fifa_db_oltp.sqlite</attribute>
+        <attribute>jdbc:sqlite:/home/simonll4/Desktop/db/OLTP/oltp.sqlite</attribute>
       </attribute>
       <attribute>
         <code>DATABASE_DIALECT_ID</code>
@@ -567,7 +567,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>fifa_dw</connection>
+    <connection>dw-db2</connection>
     <schema>tmp</schema>
     <table>league</table>
     <commit>1000</commit>

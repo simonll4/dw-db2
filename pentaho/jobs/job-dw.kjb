@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>job-tmp</name>
+  <name>job-dw</name>
   <description/>
   <extended_description/>
   <job_version/>
   <directory>/</directory>
   <created_user>-</created_user>
-  <created_date>2024/05/21 18:36:31.119</created_date>
+  <created_date>2024/05/26 16:52:30.813</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2024/05/21 18:36:31.119</modified_date>
+  <modified_date>2024/05/26 16:52:30.813</modified_date>
   <parameters>
     </parameters>
   <slaveservers>
@@ -304,18 +304,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
-      <yloc>128</yloc>
+      <xloc>128</xloc>
+      <yloc>144</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>league_tmp</name>
+      <name>d_leagues</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/simonll4/Desktop/db/dw-db2/pentaho/transformations/tmp/tmp-leagues.ktr</filename>
+      <filename/>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -335,16 +335,13 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
+      <run_configuration/>
       <suppress_result_data>N</suppress_result_data>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>320</xloc>
-      <yloc>128</yloc>
+      <xloc>240</xloc>
+      <yloc>144</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -355,18 +352,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>832</xloc>
-      <yloc>128</yloc>
+      <xloc>864</xloc>
+      <yloc>144</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>team_tmp</name>
+      <name>d_teams</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/simonll4/Desktop/db/dw-db2/pentaho/transformations/tmp/tmp_teams.ktr</filename>
+      <filename/>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -386,26 +383,23 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
+      <run_configuration/>
       <suppress_result_data>N</suppress_result_data>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>128</yloc>
+      <xloc>368</xloc>
+      <yloc>144</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>season_tmp</name>
+      <name>d_seasons</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/simonll4/Desktop/db/dw-db2/pentaho/transformations/tmp/tmp_season.ktr</filename>
+      <filename/>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -425,26 +419,23 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
+      <run_configuration/>
       <suppress_result_data>N</suppress_result_data>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>576</xloc>
-      <yloc>128</yloc>
+      <xloc>496</xloc>
+      <yloc>144</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>fact_table_tmp</name>
+      <name>d_time</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/simonll4/Desktop/db/dw-db2/pentaho/transformations/tmp/tmp_fact_table.ktr</filename>
+      <filename/>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -464,32 +455,65 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
+      <run_configuration/>
       <suppress_result_data>N</suppress_result_data>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>720</xloc>
-      <yloc>128</yloc>
+      <xloc>624</xloc>
+      <yloc>144</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>ft_matchs</name>
+      <description/>
+      <type>TRANS</type>
+      <attributes/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename/>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <run_configuration/>
+      <suppress_result_data>N</suppress_result_data>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>752</xloc>
+      <yloc>144</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
   <hops>
     <hop>
       <from>Start</from>
-      <to>league_tmp</to>
+      <to>d_leagues</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>league_tmp</from>
-      <to>team_tmp</to>
+      <from>d_leagues</from>
+      <to>d_teams</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -497,8 +521,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>team_tmp</from>
-      <to>season_tmp</to>
+      <from>d_teams</from>
+      <to>d_seasons</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -506,8 +530,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>season_tmp</from>
-      <to>fact_table_tmp</to>
+      <from>d_seasons</from>
+      <to>d_time</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -515,11 +539,20 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>fact_table_tmp</from>
+      <from>d_time</from>
+      <to>ft_matchs</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ft_matchs</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>

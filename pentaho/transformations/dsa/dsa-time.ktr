@@ -430,17 +430,17 @@
     <created_date>2024/05/26 12:06:09.018</created_date>
     <modified_user>-</modified_user>
     <modified_date>2024/05/26 12:06:09.018</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>fifa_dw</name>
+    <name>dw-db2</name>
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>dw-db2</database>
+    <database>dwdb2</database>
     <port>5432</port>
     <username>user</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce10bec3fd89</password>
@@ -539,96 +539,6 @@
     </hop>
   </order>
   <step>
-    <name>Entrada Tabla</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>fifa_dw</connection>
-    <sql>SELECT '2008-07-18'::date</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Date</type>
-        <storagetype>normal</storagetype>
-        <name>date</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>date</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>96</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Generar filas</name>
-    <type>RowGenerator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-    </fields>
-    <limit>3100</limit>
-    <never_ending>N</never_ending>
-    <interval_in_ms>5000</interval_in_ms>
-    <row_time_field>now</row_time_field>
-    <last_time_field>FiveSecondsAgo</last_time_field>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>96</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Añadir secuencia</name>
     <type>Sequence</type>
     <description/>
@@ -660,43 +570,6 @@
     <GUI>
       <xloc>240</xloc>
       <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Juntar filas (producto cartesiano)</name>
-    <type>JoinRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <cache_size>500</cache_size>
-    <main/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>cantidad_dia</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>336</xloc>
-      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -787,8 +660,8 @@
     </GUI>
   </step>
   <step>
-    <name>Valor JavaScript modificado</name>
-    <type>ScriptValueMod</type>
+    <name>Entrada Tabla</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -797,27 +670,39 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-idFecha = anio*10000+mes*100+dia</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>idFecha</name>
-        <rename>idFecha</rename>
-        <type>Integer</type>
+    <connection>dw-db2</connection>
+    <sql>SELECT '2008-07-18'::date</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>date</name>
         <length>-1</length>
         <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
+        <origin>Entrada Tabla</origin>
+        <comments>date</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -827,7 +712,76 @@ idFecha = anio*10000+mes*100+dia</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>672</xloc>
+      <xloc>96</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Generar filas</name>
+    <type>RowGenerator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+    </fields>
+    <limit>3100</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms>5000</interval_in_ms>
+    <row_time_field>now</row_time_field>
+    <last_time_field>FiveSecondsAgo</last_time_field>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>96</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Juntar filas (producto cartesiano)</name>
+    <type>JoinRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <cache_size>500</cache_size>
+    <main/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>cantidad_dia</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -911,8 +865,8 @@ idFecha = anio*10000+mes*100+dia</jsScript_script>
     </GUI>
   </step>
   <step>
-    <name>trimestre</name>
-    <type>NumberRange</type>
+    <name>Salida Tabla</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -921,31 +875,25 @@ idFecha = anio*10000+mes*100+dia</jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <inputField>mes</inputField>
-    <outputField>trimestre</outputField>
-    <fallBackValue>unknown</fallBackValue>
-    <rules>
-      <rule>
-        <lower_bound>1.0</lower_bound>
-        <upper_bound>4.0</upper_bound>
-        <value>Primer Cuatrimestre</value>
-      </rule>
-      <rule>
-        <lower_bound>10.0</lower_bound>
-        <upper_bound>13.0</upper_bound>
-        <value>Cuarto Cuatrimestre</value>
-      </rule>
-      <rule>
-        <lower_bound>4.0</lower_bound>
-        <upper_bound>7.0</upper_bound>
-        <value>Segundo Cuatrimestre</value>
-      </rule>
-      <rule>
-        <lower_bound>7.0</lower_bound>
-        <upper_bound>10.0</upper_bound>
-        <value>Tercer Cuatrimestre</value>
-      </rule>
-    </rules>
+    <connection>dw-db2</connection>
+    <schema>dsa</schema>
+    <table>d_time</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -955,48 +903,8 @@ idFecha = anio*10000+mes*100+dia</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>976</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>semestre</name>
-    <type>NumberRange</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <inputField>mes</inputField>
-    <outputField>semestre</outputField>
-    <fallBackValue>unknown</fallBackValue>
-    <rules>
-      <rule>
-        <lower_bound>1.0</lower_bound>
-        <upper_bound>7.0</upper_bound>
-        <value>Primer Semestre</value>
-      </rule>
-      <rule>
-        <lower_bound>7.0</lower_bound>
-        <upper_bound>13.0</upper_bound>
-        <value>Segundo Semestre</value>
-      </rule>
-    </rules>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1072</xloc>
-      <yloc>192</yloc>
+      <xloc>1232</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1014,27 +922,21 @@ idFecha = anio*10000+mes*100+dia</jsScript_script>
     <fields>
       <field>
         <name>idFecha</name>
-        <rename/>
       </field>
       <field>
         <name>anio</name>
-        <rename/>
       </field>
       <field>
         <name>semestre</name>
-        <rename/>
       </field>
       <field>
         <name>trimestre</name>
-        <rename/>
       </field>
       <field>
         <name>mes</name>
-        <rename/>
       </field>
       <field>
         <name>mes_descripcion</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -1104,8 +1006,8 @@ idFecha = anio*10000+mes*100+dia</jsScript_script>
     </GUI>
   </step>
   <step>
-    <name>Salida Tabla</name>
-    <type>TableOutput</type>
+    <name>Valor JavaScript modificado</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1114,24 +1016,26 @@ idFecha = anio*10000+mes*100+dia</jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>fifa_dw</connection>
-    <schema>dsa</schema>
-    <table>d_time</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>//Script here
+
+idFecha = anio*10000+mes*100+dia;</jsScript_script>
+      </jsScript>
+    </jsScripts>
     <fields>
+      <field>
+        <name>idFecha</name>
+        <rename>idFecha</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1142,8 +1046,98 @@ idFecha = anio*10000+mes*100+dia</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1232</xloc>
-      <yloc>320</yloc>
+      <xloc>672</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>semestre</name>
+    <type>NumberRange</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <inputField>mes</inputField>
+    <outputField>semestre</outputField>
+    <fallBackValue>unknown</fallBackValue>
+    <rules>
+      <rule>
+        <lower_bound>1.0</lower_bound>
+        <upper_bound>7.0</upper_bound>
+        <value>Primer Semestre</value>
+      </rule>
+      <rule>
+        <lower_bound>7.0</lower_bound>
+        <upper_bound>13.0</upper_bound>
+        <value>Segundo Semestre</value>
+      </rule>
+    </rules>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1072</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>trimestre</name>
+    <type>NumberRange</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <inputField>mes</inputField>
+    <outputField>trimestre</outputField>
+    <fallBackValue>unknown</fallBackValue>
+    <rules>
+      <rule>
+        <lower_bound>1.0</lower_bound>
+        <upper_bound>4.0</upper_bound>
+        <value>Primer Cuatrimestre</value>
+      </rule>
+      <rule>
+        <lower_bound>10.0</lower_bound>
+        <upper_bound>13.0</upper_bound>
+        <value>Cuarto Cuatrimestre</value>
+      </rule>
+      <rule>
+        <lower_bound>4.0</lower_bound>
+        <upper_bound>7.0</upper_bound>
+        <value>Segundo Cuatrimestre</value>
+      </rule>
+      <rule>
+        <lower_bound>7.0</lower_bound>
+        <upper_bound>10.0</upper_bound>
+        <value>Tercer Cuatrimestre</value>
+      </rule>
+    </rules>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -436,11 +436,11 @@
   <notepads>
   </notepads>
   <connection>
-    <name>fifa_dw</name>
+    <name>dw-db2</name>
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>dw-db2</database>
+    <database>dwdb2</database>
     <port>5432</port>
     <username>user</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce10bec3fd89</password>
@@ -505,7 +505,7 @@
       </attribute>
       <attribute>
         <code>CUSTOM_URL</code>
-        <attribute>jdbc:sqlite:/home/gabriel/Descargas/fifa_db_oltp.sqlite</attribute>
+        <attribute>jdbc:sqlite:/home/simonll4/Desktop/db/OLTP/oltp.sqlite</attribute>
       </attribute>
       <attribute>
         <code>DATABASE_DIALECT_ID</code>
@@ -568,39 +568,34 @@
       <schema_name/>
     </partitioning>
     <connection>fifa_oltp</connection>
-    <sql>SELECT ma.id AS id, le.id AS league_id, se.id AS season_id, ma.home_team_api_id AS id_local, ma.away_team_api_id AS id_visitante,
-count(distinct gh.id) AS goles_local, count(distinct ga.id) AS goles_visitante, po.home_pos AS posesion_local, po.away_pos AS posesion_visitante,
-count(distinct ch.id) AS tarjetas_local, count(distinct case when ch.card_type = 'r' then ch.id end) AS rojas_local, 
-count(distinct case when ch.card_type = 'y' then ch.id end) AS amarillas_local, count(distinct ca.id) AS tarjetas_visitante,
-count(distinct case when ca.card_type = 'r' then ca.id end) AS rojas_visitante, 
-count(distinct case when ca.card_type = 'y' then ca.id end) AS amarillas_visitante, count(distinct fh.id) AS faltas_local,
-count(distinct fa.id) AS faltas_visitante, count(distinct sh.id) AS tiros_arco_local, count(distinct soh.id) AS tiros_afuera_local,
-(count(distinct sh.id) + count(distinct soh.id)) AS tiros_totales_local,
-count(distinct sa.id) AS tiros_arco_visitante, count(distinct soa.id) AS tiros_afuera_visitante,
-(count(distinct sa.id) + count(distinct soa.id)) AS tiros_totales_visitante
-FROM "Match" ma
+    <sql>SELECT ma.id AS id, le.id AS league_id, se.id AS season_id,ma.date AS fecha, 
+ma.home_team_api_id AS id_local, 
+ma.away_team_api_id AS id_visitante,ma.important AS clasico,
+count(distinct gh.id) AS goles_local, count(distinct ga.id) AS goles_visitante,
+count(distinct case when ch.card_type = 'r' then ch.id end) AS rojas_local,
+count(distinct case when ch.card_type = 'y' then ch.id end) AS amarillas_local,
+count(distinct case when ca.card_type = 'r' then ca.id end) AS rojas_visitante,
+count(distinct case when ca.card_type = 'y' then ca.id end) AS amarillas_visitante,
+count(distinct sh.id) AS tiros_arco_local, count(distinct soh.id) AS tiros_afuera_local,
+count(distinct sa.id) AS tiros_arco_visitante, count(distinct soa.id) AS tiros_afuera_visitante FROM "Match" ma
     INNER JOIN seasonTable se ON ma.season = se."name"
     INNER JOIN League le ON ma.league_id = le.id
     -- Calculo de goles local y visitante --
-    INNER JOIN goalTable gh ON ma.id = gh.match_id AND ma.home_team_api_id = gh.team
-    INNER JOIN goalTable ga ON ma.id = ga.match_id AND ma.away_team_api_id = ga.team
+    LEFT JOIN goalTable gh ON ma.id = gh.match_id AND ma.home_team_api_id = gh.team
+    LEFT JOIN goalTable ga ON ma.id = ga.match_id AND ma.away_team_api_id = ga.team
     -- Calculo de amonestaciones local y visitante --
-    INNER JOIN cardTable ch ON ma.id = ch.match_id AND ma.home_team_api_id = ch.team
-    INNER JOIN cardTable ca ON ma.id = ca.match_id AND ma.away_team_api_id = ca.team
-    -- Calculo de faltas local y visitante --
-    INNER JOIN foulTable fh ON ma.id = fh.id_match AND ma.home_team_api_id = fh.team
-    INNER JOIN foulTable fa ON ma.id = fa.id_match AND ma.away_team_api_id = fa.team
+    LEFT JOIN cardTable ch ON ma.id = ch.match_id AND ma.home_team_api_id = ch.team
+    LEFT JOIN cardTable ca ON ma.id = ca.match_id AND ma.away_team_api_id = ca.team
     -- Calculo de los tiros al arco del local y visitante --
-    INNER JOIN shotOnTable sh ON ma.id = sh.id_match AND ma.home_team_api_id = sh.team
-    INNER JOIN shotOnTable sa ON ma.id = sa.id_match AND ma.away_team_api_id = sa.team
+    LEFT JOIN shotOnTable sh ON ma.id = sh.id_match AND ma.home_team_api_id = sh.team
+    LEFT JOIN shotOnTable sa ON ma.id = sa.id_match AND ma.away_team_api_id = sa.team
     -- Calculo de los tiros afuera del local y visitante --
-    INNER JOIN shotOffTable soh ON ma.id = soh.id_match AND ma.home_team_api_id = soh.team
-    INNER JOIN shotOffTable soa ON ma.id = soa.id_match AND ma.away_team_api_id = soa.team
-    -- Carga de la posesion --
-    INNER JOIN possessionTable po ON ma.id = po.match_id
+    LEFT JOIN shotOffTable soh ON ma.id = soh.id_match AND ma.home_team_api_id = soh.team
+    LEFT JOIN shotOffTable soa ON ma.id = soa.id_match AND ma.away_team_api_id = soa.team
 
-GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
-    <limit>0</limit>
+    WHERE ma.goal is not null AND ma.card is not null AND ma.shoton is not null AND ma.shotoff is not null
+GROUP BY ma.id;</sql>
+    <limit/>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
@@ -616,8 +611,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>id</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -626,7 +621,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -639,8 +634,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>league_id</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -649,7 +644,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -672,7 +667,30 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>fecha</name>
+        <length>2147483647</length>
+        <precision>-1</precision>
+        <origin>Entrada Tabla</origin>
+        <comments>fecha</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -685,8 +703,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>id_local</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -695,7 +713,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -708,8 +726,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>id_visitante</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -718,7 +736,30 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>clasico</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Entrada Tabla</origin>
+        <comments>clasico</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -731,8 +772,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>goles_local</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -741,7 +782,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -754,31 +795,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>goles_visitante</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>BigNumber</type>
-        <storagetype>normal</storagetype>
-        <name>posesion_local</name>
-        <length>16</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>posesion_local</comments>
-        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol/>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -787,53 +805,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>BigNumber</type>
-        <storagetype>normal</storagetype>
-        <name>posesion_visitante</name>
-        <length>16</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>posesion_visitante</comments>
-        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>tarjetas_local</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>tarjetas_local</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -846,8 +818,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>rojas_local</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -856,7 +828,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -869,8 +841,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>amarillas_local</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -879,30 +851,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>tarjetas_visitante</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>tarjetas_visitante</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -915,8 +864,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>rojas_visitante</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -925,7 +874,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -938,8 +887,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>amarillas_visitante</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -948,53 +897,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>faltas_local</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>faltas_local</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>faltas_visitante</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>faltas_visitante</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1007,8 +910,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>tiros_arco_local</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -1017,7 +920,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1030,8 +933,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>tiros_afuera_local</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -1040,30 +943,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>tiros_totales_local</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>tiros_totales_local</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1076,8 +956,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>tiros_arco_visitante</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -1086,7 +966,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1099,8 +979,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <origin>Entrada Tabla</origin>
         <comments>tiros_afuera_visitante</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -1109,30 +989,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>tiros_totales_visitante</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Entrada Tabla</origin>
-        <comments>tiros_totales_visitante</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
+        <date_format_locale>en_US</date_format_locale>
         <date_format_timezone>America/Argentina/Cordoba</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1146,8 +1003,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>192</yloc>
+      <xloc>336</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1162,7 +1019,7 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>fifa_dw</connection>
+    <connection>dw-db2</connection>
     <schema>tmp</schema>
     <table>match_fact_table</table>
     <commit>1000</commit>
@@ -1190,8 +1047,8 @@ GROUP BY ma.id, ma.home_team_api_id, ma.away_team_api_id</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>192</yloc>
+      <xloc>640</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
