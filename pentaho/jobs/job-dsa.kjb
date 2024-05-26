@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>job-tmp</name>
+  <name>job-dsa</name>
   <description/>
   <extended_description/>
   <job_version/>
   <directory>/</directory>
   <created_user>-</created_user>
-  <created_date>2024/05/21 18:36:31.119</created_date>
+  <created_date>2024/05/26 11:27:50.411</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2024/05/21 18:36:31.119</modified_date>
+  <modified_date>2024/05/26 11:27:50.411</modified_date>
   <parameters>
     </parameters>
   <slaveservers>
@@ -304,18 +304,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
-      <yloc>128</yloc>
+      <xloc>176</xloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>league_tmp</name>
+      <name>d_leagues</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/gabriel/dw-db2/pentaho/transformations/tmp/tmp-leagues.ktr</filename>
+      <filename>/home/gabriel/dw-db2/pentaho/transformations/dsa/dsa-league.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -343,30 +343,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>320</xloc>
-      <yloc>128</yloc>
+      <xloc>304</xloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>Success</name>
-      <description/>
-      <type>SUCCESS</type>
-      <attributes/>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>832</xloc>
-      <yloc>128</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>team_tmp</name>
+      <name>d_team</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/gabriel/dw-db2/pentaho/transformations/tmp/tmp_teams.ktr</filename>
+      <filename>/home/gabriel/dw-db2/pentaho/transformations/dsa/dsa-team.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -394,18 +382,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>128</yloc>
+      <xloc>432</xloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>season_tmp</name>
+      <name>d_season</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/gabriel/dw-db2/pentaho/transformations/tmp/tmp_season.ktr</filename>
+      <filename>/home/gabriel/dw-db2/pentaho/transformations/dsa/dsa-season.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -433,18 +421,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>576</xloc>
-      <yloc>128</yloc>
+      <xloc>560</xloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>fact_table_tmp</name>
+      <name>d_time</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/gabriel/dw-db2/pentaho/transformations/tmp/tmp_fact_table.ktr</filename>
+      <filename>/home/gabriel/dw-db2/pentaho/transformations/dsa/dsa-time.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -472,24 +460,24 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>720</xloc>
-      <yloc>128</yloc>
+      <xloc>688</xloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
   <hops>
     <hop>
       <from>Start</from>
-      <to>league_tmp</to>
+      <to>d_leagues</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>league_tmp</from>
-      <to>team_tmp</to>
+      <from>d_leagues</from>
+      <to>d_team</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -497,8 +485,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>team_tmp</from>
-      <to>season_tmp</to>
+      <from>d_team</from>
+      <to>d_season</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -506,17 +494,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>season_tmp</from>
-      <to>fact_table_tmp</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>fact_table_tmp</from>
-      <to>Success</to>
+      <from>d_season</from>
+      <to>d_time</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
