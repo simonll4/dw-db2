@@ -1,0 +1,16 @@
+* Crear db postgres en contenedor docker:
+  - docker run --name dbfifa -e POSTGRES_PASSWORD=123 -e POSTGRES_USER=user -e -POSTGRES_DB=dbfifa -p 5432:5432 -d postgres:latest
+  
+* Hacer backup de la db que esta en un contenedor docker:
+  - docker exec -it your_container_id /usr/bin/pg_dump -U your_username -d nombredb > file_backup.sql
+
+* Crear data base dentro del contenedor:
+ - docker exec -it your_container_id createdb -U your_username nombredb:
+
+* Tirar el backup dentro del contenedor:
+  - docker cp file_backup.sql your_container_id:/file_backup.sql
+
+* Restaurar el backup:
+  - docker exec -it your_container_id psql -U your_username -d nombredb -f /file_backup.sql
+  
+
