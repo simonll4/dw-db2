@@ -208,7 +208,7 @@ ALTER TABLE dsa.ft_match OWNER TO "user";
 --
 
 CREATE TABLE dw.d_leagues (
-    idleague bigint,
+    idleague bigint NOT NULL,
     name text
 );
 
@@ -220,7 +220,7 @@ ALTER TABLE dw.d_leagues OWNER TO "user";
 --
 
 CREATE TABLE dw.d_seasons (
-    idseason bigint,
+    idseason bigint NOT NULL,
     name text,
     startseason text,
     endseason text
@@ -234,7 +234,7 @@ ALTER TABLE dw.d_seasons OWNER TO "user";
 --
 
 CREATE TABLE dw.d_teams (
-    idteam bigint,
+    idteam bigint NOT NULL,
     name text
 );
 
@@ -246,7 +246,7 @@ ALTER TABLE dw.d_teams OWNER TO "user";
 --
 
 CREATE TABLE dw.d_time (
-    idfecha bigint,
+    iddate bigint NOT NULL,
     year integer,
     semester character varying(255),
     quarter character varying(255),
@@ -258,15 +258,15 @@ CREATE TABLE dw.d_time (
 ALTER TABLE dw.d_time OWNER TO "user";
 
 --
--- Name: ft_matchs; Type: TABLE; Schema: dw; Owner: user
+-- Name: ft_matches; Type: TABLE; Schema: dw; Owner: user
 --
 
-CREATE TABLE dw.ft_matchs (
-    idleague bigint,
-    idseason bigint,
-    idfecha bigint,
-    idteam bigint,
-    idteam_1 bigint,
+CREATE TABLE dw.ft_matches (
+    idleague bigint NOT NULL,
+    idseason bigint NOT NULL,
+    iddate bigint NOT NULL,
+    idteamhome bigint NOT NULL,
+    idteamaway bigint NOT NULL,
     clasico integer,
     goles_local integer,
     goles_visitante integer,
@@ -281,7 +281,7 @@ CREATE TABLE dw.ft_matchs (
 );
 
 
-ALTER TABLE dw.ft_matchs OWNER TO "user";
+ALTER TABLE dw.ft_matches OWNER TO "user";
 
 --
 -- Name: league; Type: TABLE; Schema: tmp; Owner: user
@@ -18390,7 +18390,7 @@ COPY dw.d_teams (idteam, name) FROM stdin;
 -- Data for Name: d_time; Type: TABLE DATA; Schema: dw; Owner: user
 --
 
-COPY dw.d_time (idfecha, year, semester, quarter, month, descriptionmonth) FROM stdin;
+COPY dw.d_time (iddate, year, semester, quarter, month, descriptionmonth) FROM stdin;
 20080719	2008	Segundo Semestre	Tercer Cuatrimestre	7	Julio
 20080720	2008	Segundo Semestre	Tercer Cuatrimestre	7	Julio
 20080721	2008	Segundo Semestre	Tercer Cuatrimestre	7	Julio
@@ -21495,10 +21495,10 @@ COPY dw.d_time (idfecha, year, semester, quarter, month, descriptionmonth) FROM 
 
 
 --
--- Data for Name: ft_matchs; Type: TABLE DATA; Schema: dw; Owner: user
+-- Data for Name: ft_matches; Type: TABLE DATA; Schema: dw; Owner: user
 --
 
-COPY dw.ft_matchs (idleague, idseason, idfecha, idteam, idteam_1, clasico, goles_local, goles_visitante, rojas_local, amarillas_local, rojas_visitante, amarillas_visitante, tiros_arco_local, tiros_afuera_local, tiros_arco_visitante, tiros_afuera_visitante) FROM stdin;
+COPY dw.ft_matches (idleague, idseason, iddate, idteamhome, idteamaway, clasico, goles_local, goles_visitante, rojas_local, amarillas_local, rojas_visitante, amarillas_visitante, tiros_arco_local, tiros_afuera_local, tiros_arco_visitante, tiros_afuera_visitante) FROM stdin;
 4	1	20080816	111	112	0	1	0	0	3	0	4	0	0	0	0
 4	1	20080816	107	108	0	0	3	0	2	0	2	0	0	0	0
 4	1	20080816	105	106	0	2	2	0	2	0	2	6	5	7	7
@@ -50308,6 +50308,46 @@ SELECT pg_catalog.setval('dsa.d_team_idteam_seq', 1, false);
 
 
 --
+-- Name: d_leagues pk_idleagur; Type: CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.d_leagues
+    ADD CONSTRAINT pk_idleagur PRIMARY KEY (idleague);
+
+
+--
+-- Name: d_teams pk_idteam; Type: CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.d_teams
+    ADD CONSTRAINT pk_idteam PRIMARY KEY (idteam);
+
+
+--
+-- Name: d_time pk_idtime; Type: CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.d_time
+    ADD CONSTRAINT pk_idtime PRIMARY KEY (iddate);
+
+
+--
+-- Name: ft_matches pk_matches; Type: CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.ft_matches
+    ADD CONSTRAINT pk_matches PRIMARY KEY (idteamaway, idteamhome, idseason, idleague, iddate);
+
+
+--
+-- Name: d_seasons pk_sideason; Type: CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.d_seasons
+    ADD CONSTRAINT pk_sideason PRIMARY KEY (idseason);
+
+
+--
 -- Name: idx_d_league_lookup; Type: INDEX; Schema: dsa; Owner: user
 --
 
@@ -50347,6 +50387,46 @@ CREATE INDEX idx_d_team_lookup ON dsa.d_team USING btree (id_team_oltp);
 --
 
 CREATE INDEX idx_d_team_tk ON dsa.d_team USING btree (idteam);
+
+
+--
+-- Name: ft_matches fk_matches_away_teams; Type: FK CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.ft_matches
+    ADD CONSTRAINT fk_matches_away_teams FOREIGN KEY (idteamaway) REFERENCES dw.d_teams(idteam);
+
+
+--
+-- Name: ft_matches fk_matches_home_teams; Type: FK CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.ft_matches
+    ADD CONSTRAINT fk_matches_home_teams FOREIGN KEY (idteamhome) REFERENCES dw.d_teams(idteam);
+
+
+--
+-- Name: ft_matches fk_matches_leagues; Type: FK CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.ft_matches
+    ADD CONSTRAINT fk_matches_leagues FOREIGN KEY (idleague) REFERENCES dw.d_leagues(idleague);
+
+
+--
+-- Name: ft_matches fk_matches_seasons; Type: FK CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.ft_matches
+    ADD CONSTRAINT fk_matches_seasons FOREIGN KEY (idseason) REFERENCES dw.d_seasons(idseason);
+
+
+--
+-- Name: ft_matches fk_matches_time; Type: FK CONSTRAINT; Schema: dw; Owner: user
+--
+
+ALTER TABLE ONLY dw.ft_matches
+    ADD CONSTRAINT fk_matches_time FOREIGN KEY (iddate) REFERENCES dw.d_time(iddate);
 
 
 --
