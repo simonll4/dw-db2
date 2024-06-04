@@ -3,7 +3,7 @@
     <Hierarchy visible="true" hasAll="true">
       <Table name="d_leagues" schema="dw">
       </Table>
-      <Level name="Ligas" visible="true" column="idleague" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      <Level name="Ligas" visible="true" column="idleague" nameColumn="name" type="Integer" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -11,7 +11,7 @@
     <Hierarchy visible="true" hasAll="true">
       <Table name="d_seasons" schema="dw">
       </Table>
-      <Level name="Temporadas" visible="true" column="idseason" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      <Level name="Temporadas" visible="true" column="idseason" nameColumn="name" type="Integer" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -19,7 +19,7 @@
     <Hierarchy visible="true" hasAll="true">
       <Table name="d_teams" schema="dw">
       </Table>
-      <Level name="Equipos" visible="true" column="idteam" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      <Level name="Equipos" visible="true" column="idteam" nameColumn="name" type="Integer" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -27,13 +27,13 @@
     <Hierarchy visible="true" hasAll="true">
       <Table name="d_time" schema="dw">
       </Table>
-      <Level name="Anios" visible="true" column="iddate" nameColumn="year" type="String" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
+      <Level name="Anios" visible="true" column="year" nameColumn="year" type="Integer" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
       </Level>
-      <Level name="Semestre" visible="true" column="iddate" nameColumn="semester" type="String" uniqueMembers="true" levelType="TimeHalfYear" hideMemberIf="Never">
+      <Level name="Semestre" visible="true" column="semester" nameColumn="semester" type="String" uniqueMembers="true" levelType="TimeHalfYear" hideMemberIf="Never">
       </Level>
-      <Level name="Cuatrimestre" visible="true" column="iddate" nameColumn="quarter" type="String" uniqueMembers="true" levelType="TimeQuarters" hideMemberIf="Never">
+      <Level name="Cuatrimestre" visible="true" column="quarter" nameColumn="quarter" type="String" uniqueMembers="true" levelType="TimeQuarters" hideMemberIf="Never">
       </Level>
-      <Level name="Mes" visible="true" column="iddate" nameColumn="month" type="String" uniqueMembers="true" levelType="TimeMonths" hideMemberIf="Never">
+      <Level name="Mes" visible="true" column="iddate" nameColumn="month" type="Integer" uniqueMembers="true" levelType="TimeMonths" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
