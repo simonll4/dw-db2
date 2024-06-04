@@ -1,4 +1,4 @@
-<Schema name="New Schema1">
+<Schema name="cuboMatchs">
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="d_leagues">
     <Hierarchy visible="true" hasAll="true">
       <Table name="d_leagues" schema="dw">
@@ -54,7 +54,7 @@
     </Measure>
     <Measure name="total_red_cards" column="rojas_totales" datatype="Integer" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="total_yellow_cards" column="amarillas_totales" aggregator="distinct-count" visible="true">
+    <Measure name="total_yellow_cards" column="amarillas_totales" aggregator="sum" visible="true">
     </Measure>
   </Cube>
 </Schema>
