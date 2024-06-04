@@ -1,56 +1,60 @@
 <Schema name="New Schema1">
-  <Dimension type="StandardDimension" visible="true" name="d_leagues">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="d_leagues">
     <Hierarchy visible="true" hasAll="true">
       <Table name="d_leagues" schema="dw">
       </Table>
-      <Level name="Ligas" visible="true" column="idleague" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular">
+      <Level name="Ligas" visible="true" column="idleague" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
-  <Dimension type="StandardDimension" visible="true" name="d_seasons">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="d_seasons">
     <Hierarchy visible="true" hasAll="true">
-      <Table name="d_seasons" schema="dw" alias="">
+      <Table name="d_seasons" schema="dw">
       </Table>
-      <Level name="Temporadas" visible="true" column="idseason" nameColumn="name" uniqueMembers="true" levelType="Regular">
+      <Level name="Temporadas" visible="true" column="idseason" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
-  <Dimension type="StandardDimension" visible="true" name="d_teams">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="d_teams">
     <Hierarchy visible="true" hasAll="true">
-      <Table name="d_teams" schema="dw" alias="">
+      <Table name="d_teams" schema="dw">
       </Table>
-      <Level name="Equipos" visible="true" column="idteam" nameColumn="name" uniqueMembers="true" levelType="Regular">
+      <Level name="Equipos" visible="true" column="idteam" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
-  <Dimension type="TimeDimension" visible="true" name="d_time">
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="d_time">
     <Hierarchy visible="true" hasAll="true">
-      <Table name="d_time" schema="dw" alias="">
+      <Table name="d_time" schema="dw">
       </Table>
-      <Level name="Anios" visible="true" column="iddate" nameColumn="year" uniqueMembers="true" levelType="TimeYears">
+      <Level name="Anios" visible="true" column="iddate" nameColumn="year" type="String" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
       </Level>
-      <Level name="Semestre" visible="true" column="iddate" nameColumn="semester" uniqueMembers="true" levelType="TimeHalfYear">
+      <Level name="Semestre" visible="true" column="iddate" nameColumn="semester" type="String" uniqueMembers="true" levelType="TimeHalfYear" hideMemberIf="Never">
       </Level>
-      <Level name="Cuatrimestre" visible="true" column="iddate" nameColumn="quarter" uniqueMembers="true" levelType="TimeQuarters">
+      <Level name="Cuatrimestre" visible="true" column="iddate" nameColumn="quarter" type="String" uniqueMembers="true" levelType="TimeQuarters" hideMemberIf="Never">
       </Level>
-      <Level name="Mes" visible="true" column="iddate" nameColumn="month" uniqueMembers="true" levelType="TimeMonths">
+      <Level name="Mes" visible="true" column="iddate" nameColumn="month" type="String" uniqueMembers="true" levelType="TimeMonths" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
   <Cube name="Matchs" visible="true" cache="true" enabled="true">
-    <Table name="ft_matches" schema="dw" alias="">
+    <Table name="ft_matches" schema="dw">
     </Table>
-    <DimensionUsage source="d_leagues" name="d_leagues" visible="true" foreignKey="idleague">
+    <DimensionUsage source="d_leagues" name="d_leagues" visible="true" foreignKey="idleague" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="d_seasons" name="d_seasons" visible="true" foreignKey="idseason">
+    <DimensionUsage source="d_seasons" name="d_seasons" visible="true" foreignKey="idseason" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="d_teams" name="d_teams_away" visible="true" foreignKey="idteamaway">
+    <DimensionUsage source="d_teams" name="d_teams_away" visible="true" foreignKey="idteamaway" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="d_teams" name="d_teams_home" visible="true" foreignKey="idteamhome">
+    <DimensionUsage source="d_teams" name="d_teams_home" visible="true" foreignKey="idteamhome" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="d_time" name="d_time" visible="true" foreignKey="iddate">
+    <DimensionUsage source="d_time" name="d_time" visible="true" foreignKey="iddate" highCardinality="false">
     </DimensionUsage>
-    <Measure name="New Measure 0" aggregator="distinct-count" visible="true">
+    <Measure name="total_goals" column="goles_totales" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="total_red_cards" column="rojas_totales" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="total_yellow_cards" column="amarillas_totales" aggregator="distinct-count" visible="true">
     </Measure>
   </Cube>
 </Schema>
