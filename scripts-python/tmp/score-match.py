@@ -8,20 +8,18 @@ conn = psycopg2.connect(
     password="123"
 )
 
-
-# Crea un cursor
 cur = conn.cursor()
 
 # Agrega las nuevas columnas scoreHome y scoreAway
 cur.execute("""
-    ALTER TABLE dw.ft_matches
+        ALTER TABLE tmp.match_fact_table
     ADD COLUMN scoreHome INT,
     ADD COLUMN scoreAway INT
 """)
 
 # Actualiza las nuevas columnas basándose en los goles de cada equipo
 cur.execute("""
-    UPDATE dw.ft_matches
+    UPDATE tmp.match_fact_table
     SET scoreHome = CASE
         WHEN goles_local > goles_visitante THEN 3
         WHEN goles_local < goles_visitante THEN 0

@@ -1,13 +1,9 @@
 import sqlite3
 import pandas as pd
 
-# Connect to the SQLite database
 conn = sqlite3.connect('/home/simonll4/Desktop/db/OLTP/oltp.sqlite')
-
-# Create a cursor object
 c = conn.cursor()
 
-# Define a list of important matches
 important_matches = [
     (8635, 8342),
     (8635, 9985),
@@ -44,9 +40,5 @@ for team_id_1, team_id_2 in important_matches:
         OR (home_team_api_id = ? AND away_team_api_id = ?)
     """, (team_id_1, team_id_2, team_id_2, team_id_1))
 
-
-# Commit the changes
 conn.commit()
-
-# Close the connection to the database
 conn.close()

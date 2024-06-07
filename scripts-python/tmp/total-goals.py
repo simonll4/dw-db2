@@ -8,19 +8,13 @@ conn = psycopg2.connect(
     password="123"
 )
 
-# Crea un cursor
 cur = conn.cursor()
-
-# Agrega la columna 'goles_totales' a la tabla 'ft_matchs'
-cur.execute("ALTER TABLE dw.ft_matches ADD COLUMN amarillas_totales INT")
+cur.execute("ALTER TABLE tmp.match_fact_table ADD COLUMN goles_totales INT")
 
 # Actualiza la columna 'goles_totales' con la suma de 'goles_local' y 'goles_visitante'
 cur.execute(
-    "UPDATE dw.ft_matches SET amarillas_totales = amarillas_local + amarillas_visitante")
+    "UPDATE tmp.match_fact_table SET goles_totales = goles_local + goles_visitante")
 
-# Confirma los cambios
 conn.commit()
-
-# Cierra la conexión
 cur.close()
 conn.close()
