@@ -56,5 +56,9 @@
     </Measure>
     <Measure name="total_yellow_cards" column="amarillas_totales" aggregator="sum" visible="true">
     </Measure>
+    <Measure name="total_away_score" column="scoreaway" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="total_home_score" column="scorehome" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
   </Cube>
 </Schema>
