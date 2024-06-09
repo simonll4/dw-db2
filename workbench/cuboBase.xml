@@ -56,9 +56,9 @@
     </Measure>
     <Measure name="total_yellow_cards" column="amarillas_totales" datatype="Integer" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="total_away_score" column="scoreaway" datatype="Integer" aggregator="sum" visible="true">
+    <Measure name="total_away_score" column="puntos_visitante" datatype="Integer" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="total_home_score" column="scorehome" datatype="Numeric" aggregator="sum" visible="true">
+    <Measure name="total_home_score" column="puntos_local" datatype="Numeric" aggregator="sum" visible="true">
     </Measure>
     <Measure name="avg_goals" column="goles_totales" datatype="Numeric" aggregator="avg" visible="true">
     </Measure>
