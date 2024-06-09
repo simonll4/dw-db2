@@ -52,12 +52,12 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE dsa.d_league (
-    idleague bigint NOT NULL,
-    version integer,
-    date_from timestamp without time zone,
-    date_to timestamp without time zone,
-    id_league_oltp integer,
-    name text
+    idleague integer NOT NULL,
+    version integer NOT NULL,
+    date_from timestamp without time zone NOT NULL,
+    date_to timestamp without time zone NOT NULL,
+    id_league_oltp integer NOT NULL,
+    name character varying NOT NULL
 );
 
 
@@ -89,14 +89,14 @@ ALTER SEQUENCE dsa.d_league_idleague_seq OWNED BY dsa.d_league.idleague;
 --
 
 CREATE TABLE dsa.d_season (
-    idseason bigint NOT NULL,
-    version integer,
-    date_from timestamp without time zone,
-    date_to timestamp without time zone,
-    id_season_oltp bigint,
-    name text,
-    inicio text,
-    fin text
+    idseason integer NOT NULL,
+    version integer NOT NULL,
+    date_from timestamp without time zone NOT NULL,
+    date_to timestamp without time zone NOT NULL,
+    id_season_oltp integer NOT NULL,
+    name character varying NOT NULL,
+    inicio integer NOT NULL,
+    fin integer NOT NULL
 );
 
 
@@ -128,12 +128,12 @@ ALTER SEQUENCE dsa.d_season_idseason_seq OWNED BY dsa.d_season.idseason;
 --
 
 CREATE TABLE dsa.d_team (
-    idteam bigint NOT NULL,
-    version integer,
-    date_from timestamp without time zone,
-    date_to timestamp without time zone,
-    id_team_oltp integer,
-    name text
+    idteam integer NOT NULL,
+    version integer NOT NULL,
+    date_from timestamp without time zone NOT NULL,
+    date_to timestamp without time zone NOT NULL,
+    id_team_oltp integer NOT NULL,
+    name character varying NOT NULL
 );
 
 
@@ -165,13 +165,13 @@ ALTER SEQUENCE dsa.d_team_idteam_seq OWNED BY dsa.d_team.idteam;
 --
 
 CREATE TABLE dsa.d_time (
-    idfecha double precision,
-    anio double precision,
-    semestre character varying(255),
-    trimestre character varying(255),
-    mes double precision,
-    mes_descripcion character varying(10),
-    fechaformateada timestamp without time zone
+    idfecha integer NOT NULL,
+    anio integer NOT NULL,
+    semestre character varying(20) NOT NULL,
+    trimestre character varying(20) NOT NULL,
+    mes integer NOT NULL,
+    mes_descripcion character varying(10) NOT NULL,
+    fechaformateada timestamp without time zone NOT NULL
 );
 
 
@@ -182,27 +182,27 @@ ALTER TABLE dsa.d_time OWNER TO "user";
 --
 
 CREATE TABLE dsa.ft_match (
-    idleague bigint,
-    idseason bigint,
-    idfecha bigint,
-    idteamhome bigint,
-    idteamaway bigint,
-    clasico integer,
-    goles_local integer,
-    goles_visitante integer,
-    rojas_local integer,
-    amarillas_local integer,
-    rojas_visitante integer,
-    amarillas_visitante integer,
-    tiros_arco_local integer,
-    tiros_afuera_local integer,
-    tiros_arco_visitante integer,
-    tiros_afuera_visitante integer,
-    scorehome integer,
-    scoreaway integer,
-    goles_totales integer,
-    amarillas_totales integer,
-    rojas_totales integer
+    idleague integer NOT NULL,
+    idseason integer NOT NULL,
+    idfecha integer NOT NULL,
+    idteamhome integer NOT NULL,
+    idteamaway integer NOT NULL,
+    clasico integer NOT NULL,
+    goles_local integer NOT NULL,
+    goles_visitante integer NOT NULL,
+    rojas_local integer NOT NULL,
+    amarillas_local integer NOT NULL,
+    rojas_visitante integer NOT NULL,
+    amarillas_visitante integer NOT NULL,
+    tiros_arco_local integer NOT NULL,
+    tiros_afuera_local integer NOT NULL,
+    tiros_arco_visitante integer NOT NULL,
+    tiros_afuera_visitante integer NOT NULL,
+    scorehome integer NOT NULL,
+    scoreaway integer NOT NULL,
+    goles_totales integer NOT NULL,
+    amarillas_totales integer NOT NULL,
+    rojas_totales integer NOT NULL
 );
 
 
@@ -213,8 +213,8 @@ ALTER TABLE dsa.ft_match OWNER TO "user";
 --
 
 CREATE TABLE dw.d_leagues (
-    idleague bigint NOT NULL,
-    name text
+    idleague integer NOT NULL,
+    name character varying(100) NOT NULL
 );
 
 
@@ -225,10 +225,10 @@ ALTER TABLE dw.d_leagues OWNER TO "user";
 --
 
 CREATE TABLE dw.d_seasons (
-    idseason bigint NOT NULL,
-    name text,
-    startseason text,
-    endseason text
+    idseason integer NOT NULL,
+    name character varying(9) NOT NULL,
+    startseason integer NOT NULL,
+    endseason integer NOT NULL
 );
 
 
@@ -239,8 +239,8 @@ ALTER TABLE dw.d_seasons OWNER TO "user";
 --
 
 CREATE TABLE dw.d_teams (
-    idteam bigint NOT NULL,
-    name text
+    idteam integer NOT NULL,
+    name character varying(50) NOT NULL
 );
 
 
@@ -251,12 +251,12 @@ ALTER TABLE dw.d_teams OWNER TO "user";
 --
 
 CREATE TABLE dw.d_time (
-    iddate bigint NOT NULL,
-    year integer,
-    semester character varying(255),
-    quarter character varying(255),
-    month integer,
-    descriptionmonth character varying(10)
+    iddate integer NOT NULL,
+    year integer NOT NULL,
+    semester character varying(20) NOT NULL,
+    quarter character varying(20) NOT NULL,
+    month integer NOT NULL,
+    descriptionmonth character varying(10) NOT NULL
 );
 
 
@@ -267,27 +267,27 @@ ALTER TABLE dw.d_time OWNER TO "user";
 --
 
 CREATE TABLE dw.ft_matches (
-    id_league bigint NOT NULL,
-    id_season bigint NOT NULL,
-    id_date bigint NOT NULL,
-    id_teamhome bigint NOT NULL,
-    id_teamaway bigint NOT NULL,
-    clasico integer,
-    goles_local integer,
-    goles_visitante integer,
-    rojas_local integer,
-    amarillas_local integer,
-    rojas_visitante integer,
-    amarillas_visitante integer,
-    tiros_arco_local integer,
-    tiros_afuera_local integer,
-    tiros_arco_visitante integer,
-    tiros_afuera_visitante integer,
-    rojas_totales integer,
-    goles_totales integer,
-    amarillas_totales integer,
-    puntos_local integer,
-    puntos_visitante integer
+    id_league integer NOT NULL,
+    id_season integer NOT NULL,
+    id_date integer NOT NULL,
+    id_teamhome integer NOT NULL,
+    id_teamaway integer NOT NULL,
+    clasico integer NOT NULL,
+    goles_local integer NOT NULL,
+    goles_visitante integer NOT NULL,
+    rojas_local integer NOT NULL,
+    amarillas_local integer NOT NULL,
+    rojas_visitante integer NOT NULL,
+    amarillas_visitante integer NOT NULL,
+    tiros_arco_local integer NOT NULL,
+    tiros_afuera_local integer NOT NULL,
+    tiros_arco_visitante integer NOT NULL,
+    tiros_afuera_visitante integer NOT NULL,
+    rojas_totales integer NOT NULL,
+    goles_totales integer NOT NULL,
+    amarillas_totales integer NOT NULL,
+    puntos_local integer NOT NULL,
+    puntos_visitante integer NOT NULL
 );
 
 
@@ -298,8 +298,8 @@ ALTER TABLE dw.ft_matches OWNER TO "user";
 --
 
 CREATE TABLE tmp.league (
-    id integer,
-    name text
+    id integer NOT NULL,
+    name character varying NOT NULL
 );
 
 
@@ -310,7 +310,7 @@ ALTER TABLE tmp.league OWNER TO "user";
 --
 
 CREATE TABLE tmp.match_fact_table (
-    id integer,
+    id integer NOT NULL,
     league_id integer,
     season_id integer,
     fecha timestamp without time zone,
@@ -342,10 +342,10 @@ ALTER TABLE tmp.match_fact_table OWNER TO "user";
 --
 
 CREATE TABLE tmp.season (
-    id bigint,
-    name text,
-    inicio text,
-    fin text
+    id integer,
+    name character varying,
+    inicio character varying,
+    fin character varying
 );
 
 
@@ -357,7 +357,7 @@ ALTER TABLE tmp.season OWNER TO "user";
 
 CREATE TABLE tmp.team (
     id integer,
-    name text
+    name character varying
 );
 
 
