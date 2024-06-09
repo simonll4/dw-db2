@@ -54,11 +54,17 @@
     </Measure>
     <Measure name="total_red_cards" column="rojas_totales" datatype="Integer" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="total_yellow_cards" column="amarillas_totales" aggregator="sum" visible="true">
+    <Measure name="total_yellow_cards" column="amarillas_totales" datatype="Integer" aggregator="sum" visible="true">
     </Measure>
     <Measure name="total_away_score" column="scoreaway" datatype="Integer" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="total_home_score" column="scorehome" datatype="Integer" aggregator="sum" visible="true">
+    <Measure name="total_home_score" column="scorehome" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="avg_goals" column="goles_totales" datatype="Numeric" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="avg_yellow_cards" column="amarillas_totales" datatype="Numeric" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="avg_red_cards" column="rojas_totales" datatype="Numeric" aggregator="avg" visible="true">
     </Measure>
   </Cube>
 </Schema>

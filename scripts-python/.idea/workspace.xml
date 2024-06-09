@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="855db1c6-6f80-40aa-8103-117c35aec733" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tmp/total-yellows.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/total_reds.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scripts-python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scripts-python.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/card.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/tmp_tables/card.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/formatFecha.py" beforeDir="false" afterPath="$PROJECT_DIR$/dsa/formatFecha.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fouls.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/tmp_tables/fouls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/goal.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/tmp_tables/goal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gol-created.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/importantMatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/derbyMatch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/possesion.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/score-match.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/score-match.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/season.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/season.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shot_off.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/tmp_tables/shot_off.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shot_on.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/tmp_tables/shot_on.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/total-goals.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/total-goals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/total-yellows.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/total_reds.py" beforeDir="false" />
-    </list>
+    <list default="true" id="855db1c6-6f80-40aa-8103-117c35aec733" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,22 +22,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.score-match.executor": "Run",
-    "Python.total-goals.executor": "Run",
-    "Python.total-yellows.executor": "Run",
-    "Python.total_reds.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.score-match.executor&quot;: &quot;Run&quot;,
+    &quot;Python.total-goals.executor&quot;: &quot;Run&quot;,
+    &quot;Python.total-yellows.executor&quot;: &quot;Run&quot;,
+    &quot;Python.total_reds.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tmp" />
@@ -85,7 +65,8 @@
       <updated>1717194675934</updated>
       <workItem from="1717194678637" duration="38000" />
       <workItem from="1717797200719" duration="125000" />
-      <workItem from="1717797371861" duration="2394000" />
+      <workItem from="1717797371861" duration="2592000" />
+      <workItem from="1717885010227" duration="1000" />
     </task>
     <servers />
   </component>

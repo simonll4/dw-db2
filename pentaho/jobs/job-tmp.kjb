@@ -343,7 +343,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>320</xloc>
+      <xloc>304</xloc>
       <yloc>128</yloc>
       <attributes_kjc/>
     </entry>
@@ -492,7 +492,7 @@
       <to>team_tmp</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
