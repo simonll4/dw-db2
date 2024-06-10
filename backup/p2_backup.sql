@@ -18067,7 +18067,6 @@ COPY dw.d_leagues (idleague, name) FROM stdin;
 1	Belgium Jupiler League
 2	England Premier League
 3	France Ligue 1
-4	Germany 1. Bundesliga
 5	Italy Serie A
 6	Netherlands Eredivisie
 7	Poland Ekstraklasa
@@ -18075,6 +18074,7 @@ COPY dw.d_leagues (idleague, name) FROM stdin;
 9	Scotland Premier League
 10	Spain LIGA BBVA
 11	Switzerland Super League
+4	Germany Bundesliga
 \.
 
 
@@ -18212,9 +18212,6 @@ COPY dw.d_teams (idteam, name) FROM stdin;
 111	Karlsruher SC
 112	VfL Bochum
 113	SC Freiburg
-114	1. FC Nürnberg
-115	1. FSV Mainz 05
-116	1. FC Kaiserslautern
 117	FC St. Pauli
 118	FC Augsburg
 119	Fortuna Düsseldorf
@@ -18398,6 +18395,9 @@ COPY dw.d_teams (idteam, name) FROM stdin;
 297	Servette FC
 298	FC Lausanne-Sports
 299	Lugano
+115	FSV Mainz 05
+114	FC Nürnberg
+116	FC Kaiserslautern
 \.
 
 
