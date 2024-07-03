@@ -1,0 +1,105 @@
+PartidosUnificados = 
+UNION(
+    SELECTCOLUMNS(
+        'dw ft_matches',
+        "id_equipo", 'dw ft_matches'[id_teamhome],
+        "id_date", 'dw ft_matches'[id_date],
+        "puntos", 'dw ft_matches'[puntos_local],
+        "local_visitante", "Local"
+    ),
+    SELECTCOLUMNS(
+        'dw ft_matches',
+        "id_equipo", 'dw ft_matches'[id_teamaway],
+        "id_date", 'dw ft_matches'[id_date],
+        "puntos", 'dw ft_matches'[puntos_visitante],
+        "local_visitante", "Visitante"
+    )
+)
+RachaVictorias = 
+VAR Equipos = DISTINCT('PartidosUnificados'[id_equipo])
+VAR Fechas = DISTINCT('PartidosUnificados'[id_date])
+VAR MaxRacha = 
+    MAXX(
+        GENERATE(
+            Equipos,
+            VAR CurrentEquipo = [id_equipo]
+            RETURN
+                ADDCOLUMNS(
+                    Fechas,
+                    "Victoria", 
+                        IF(
+                            'PartidosUnificados'[puntos] = 3 && 
+                            'PartidosUnificados'[id_equipo] = CurrentEquipo,
+                            1,
+                            0
+                        ),
+                    "Racha",
+                        CALCULATE(
+                            COUNTROWS('PartidosUnificados'),
+                            FILTER(
+                                'PartidosUnificados',
+                                'PartidosUnificados'[id_equipo] = CurrentEquipo &&
+                                'PartidosUnificados'[puntos] = 3 &&
+                                'PartidosUnificados'[id_date] <= EARLIER('PartidosUnificados'[id_date])
+                            )
+                        )
+                )
+        ),
+        [Racha]
+    )
+RETURN
+    MaxRacha
+RachaInvictos = 
+VAR Equipos = DISTINCT('PartidosUnificados'[id_equipo])
+VAR Fechas = DISTINCT('PartidosUnificados'[id_date])
+VAR MaxRachaInvictos = 
+    MAXX(
+        GENERATE(
+            Equipos,
+            VAR CurrentEquipo = [id_equipo]
+            RETURN
+                ADDCOLUMNS(
+                    Fechas,
+                    "Invicto", 
+                        IF(
+                            'PartidosUnificados'[puntos] >= 1 && 
+                            'PartidosUnificados'[id_equipo] = CurrentEquipo,
+                            1,
+                            0
+                        ),
+                    "RachaInvictos",
+                        CALCULATE(
+                            COUNTROWS('PartidosUnificados'),
+                            FILTER(
+                                'PartidosUnificados',
+                                'PartidosUnificados'[id_equipo] = CurrentEquipo &&
+                                'PartidosUnificados'[puntos] >= 1 &&
+                                'PartidosUnificados'[id_date] <= EARLIER('PartidosUnificados'[id_date])
+                            )
+                        )
+                )
+        ),
+        [RachaInvictos]
+    )
+RETURN
+    MaxRachaInvictos
+Visualización en Power BI
+
+    Crear una nueva página de informe en Power BI.
+
+    Insertar un gráfico de líneas o un gráfico de columnas para visualizar las rachas de victorias e invictos.
+
+    Configurar el gráfico:
+        En Eje agrega el campo de fecha (id_date).
+        En Leyenda agrega el campo del equipo (id_equipo).
+        En Valores agrega las medidas:
+            RachaVictorias
+            RachaInvictos
+
+ Agregar Segmentación de Datos (Slicers) para las dimensiones de tiempo (mes, cuatrimestre, semestre, año).
+
+Relación de Tablas
+
+Asegúrate de que las relaciones entre tus tablas de hechos y dimensiones estén correctamente configuradas. Por ejemplo, la relación entre PartidosUnificados y dw d_time debe estar basada en el campo de fecha (id_date).
+
+Con estas medidas y configuraciones, podrás analizar las rachas de victorias consecutivas y las rachas de invictos consecutivos para los equipos en función de diferentes períodos de tiempo, considerando todos los partidos jugados por cada equipo sin importar si son de local o visitante.
