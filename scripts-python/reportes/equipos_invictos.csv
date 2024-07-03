@@ -1,0 +1,201 @@
+equipo,nombre_equipo,racha_mas_larga,racha_actual
+26,Manchester United,27,1
+27,Newcastle United,10,1
+28,Arsenal,21,1
+29,West Bromwich Albion,6,1
+30,Sunderland,7,1
+31,Liverpool,16,1
+32,West Ham United,10,0
+33,Wigan Athletic,6,0
+34,Aston Villa,12,0
+35,Manchester City,21,1
+36,Everton,10,1
+37,Blackburn Rovers,6,0
+38,Middlesbrough,5,0
+39,Tottenham Hotspur,17,0
+40,Bolton Wanderers,6,1
+41,Stoke City,10,1
+42,Hull City,5,1
+43,Fulham,9,1
+44,Chelsea,19,1
+45,Portsmouth,5,0
+46,Birmingham City,12,0
+47,Wolverhampton Wanderers,4,0
+48,Burnley,4,1
+49,Blackpool,6,1
+50,Swansea City,5,1
+51,Queens Park Rangers,5,0
+52,Norwich City,10,0
+53,Southampton,8,1
+54,Reading,4,0
+55,Crystal Palace,7,0
+56,Cardiff City,2,0
+57,Leicester City,12,1
+58,Bournemouth,6,0
+59,Watford,3,1
+60,AJ Auxerre,9,0
+61,FC Nantes,6,0
+62,Girondins de Bordeaux,16,0
+63,SM Caen,7,1
+65,OGC Nice,10,1
+67,FC Lorient,11,1
+68,Olympique Lyonnais,12,0
+69,Toulouse FC,6,1
+70,AS Monaco,11,1
+71,Paris Saint-Germain,34,1
+72,AS Nancy-Lorraine,9,1
+73,LOSC Lille,16,1
+74,Stade Rennais FC,8,0
+75,Olympique de Marseille,13,1
+76,FC Sochaux-Montbéliard,4,0
+78,Valenciennes FC,8,0
+79,AS Saint-Étienne,12,0
+80,RC Lens,4,1
+81,Montpellier Hérault SC,11,0
+83,AC Arles-Avignon,3,0
+84,Stade Brestois 29,5,0
+85,AC Ajaccio,7,0
+86,Évian Thonon Gaillard FC,4,1
+87,Dijon FCO,3,0
+88,Stade de Reims,8,1
+89,SC Bastia,7,1
+90,ES Troyes AC,9,0
+91,En Avant de Guingamp,6,0
+92,FC Metz,3,0
+93,Angers SCO,6,0
+94,GFC Ajaccio,12,0
+95,FC Bayern Munich,30,1
+96,Hamburger SV,11,1
+97,Bayer 04 Leverkusen,15,1
+98,Borussia Dortmund,31,1
+99,FC Schalke 04,8,1
+100,Hannover 96,8,0
+101,VfL Wolfsburg,12,1
+102,1. FC Köln,6,1
+103,Eintracht Frankfurt,11,0
+104,Hertha BSC Berlin,9,1
+105,DSC Arminia Bielefeld,4,0
+106,SV Werder Bremen,11,1
+107,FC Energie Cottbus,3,1
+108,TSG 1899 Hoffenheim,10,0
+109,Borussia Mönchengladbach,13,1
+110,VfB Stuttgart,10,0
+111,Karlsruher SC,3,1
+112,VfL Bochum,8,0
+113,SC Freiburg,7,1
+114,FC Nürnberg,11,0
+115,FSV Mainz 05,12,1
+116,FC Kaiserslautern,7,1
+117,FC St. Pauli,5,0
+118,FC Augsburg,7,0
+119,Fortuna Düsseldorf,6,0
+120,SpVgg Greuther Fürth,3,0
+121,Eintracht Braunschweig,4,0
+122,SC Paderborn 07,4,0
+123,FC Ingolstadt 04,5,0
+124,SV Darmstadt 98,4,0
+125,Atalanta,7,1
+126,Siena,6,0
+127,Cagliari,7,0
+128,Lazio,10,0
+129,Catania,8,1
+130,Genoa,10,0
+131,Chievo Verona,7,1
+132,Reggio Calabria,3,1
+133,Fiorentina,14,1
+134,Juventus,31,1
+135,Milan,12,0
+136,Bologna,8,1
+137,Roma,23,1
+138,Napoli,13,1
+139,Sampdoria,10,0
+140,Inter,15,0
+141,Torino,10,0
+142,Lecce,9,0
+143,Udinese,15,0
+144,Palermo,10,1
+145,Bari,6,1
+146,Livorno,4,0
+147,Parma,17,1
+148,Cesena,4,0
+149,Brescia,4,1
+150,Novara,3,0
+151,Pescara,4,0
+152,Hellas Verona,7,0
+153,Sassuolo,11,1
+154,Empoli,8,1
+155,Frosinone,2,0
+156,Carpi,5,1
+157,Vitesse,9,0
+158,FC Groningen,10,1
+159,Roda JC Kerkrade,4,0
+160,FC Twente,5,1
+161,Willem II,5,1
+162,Ajax,10,1
+163,N.E.C.,4,0
+164,De Graafschap,6,0
+165,FC Utrecht,6,0
+166,PSV,21,1
+167,Heracles Almelo,5,0
+168,Feyenoord,12,1
+170,ADO Den Haag,5,1
+172,SC Heerenveen,8,1
+173,AZ,8,1
+174,NAC Breda,5,0
+177,Excelsior,4,1
+178,PEC Zwolle,9,0
+179,SC Cambuur,7,0
+180,Go Ahead Eagles,3,0
+181,FC Dordrecht,2,1
+185,Ruch Chorzów,1,1
+186,Legia Warszawa,2,1
+187,P. Warszawa,1,1
+192,Lech Poznań,2,1
+195,Jagiellonia Białystok,1,0
+198,Korona Kielce,1,1
+201,Podbeskidzie Bielsko-Biała,1,1
+236,Rangers,4,1
+243,Celtic,5,0
+252,Valencia CF,13,0
+253,RCD Mallorca,7,1
+254,CA Osasuna,6,1
+255,Villarreal CF,14,0
+256,RC Deportivo de La Coruña,12,0
+257,Real Madrid CF,21,1
+258,CD Numancia,3,1
+259,FC Barcelona,31,1
+260,Racing Santander,10,0
+261,Sevilla FC,9,0
+262,Real Sporting de Gijón,6,1
+263,Getafe CF,7,0
+264,Real Betis Balompié,7,1
+265,RC Recreativo,5,0
+266,RCD Espanyol,10,1
+267,Real Valladolid,7,1
+268,Athletic Club de Bilbao,9,1
+269,UD Almería,5,0
+270,Atlético Madrid,33,1
+271,Málaga CF,10,1
+272,Xerez Club Deportivo,4,1
+273,Real Zaragoza,4,0
+274,CD Tenerife,4,0
+275,Hércules Club de Fútbol,3,1
+276,Levante UD,9,0
+277,Real Sociedad,10,1
+278,Granada CF,5,0
+279,Rayo Vallecano,6,1
+280,RC Celta de Vigo,13,0
+281,Elche CF,4,1
+282,SD Eibar,5,0
+283,Córdoba CF,2,0
+284,UD Las Palmas,3,0
+285,Grasshopper Club Zürich,2,0
+287,BSC Young Boys,9,1
+288,FC Basel,17,1
+290,FC Sion,4,1
+291,FC Luzern,6,0
+292,FC Vaduz,4,0
+294,FC Zürich,3,1
+295,FC St. Gallen,1,0
+296,FC Thun,5,0
+299,Lugano,2,1
